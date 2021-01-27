@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Artem Gafurbaiev](https://up.htmlacademy.ru/javascript/22/user/81008).
-* Наставник: `Неизвестно`.
+* Наставник: [Ирина Фролова](https://htmlacademy.ru/profile/id1043867).
 
 ---
 
