@@ -1,4 +1,7 @@
 const generateRandomInteger = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
   return (min >= 0 && max >= 0)
     ? Math.round(Math.random() * (max - min + 1) + min)
     : false;
