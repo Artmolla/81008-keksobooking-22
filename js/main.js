@@ -1,22 +1,16 @@
-const generateRandomInteger = function (min, max) {
-  if ( min >= 0 && max >= 0 ) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  } return false;
+const generateRandomInteger = (min, max) => {
+  return (min >= 0 && max >= 0) ? Math.round(Math.random() * (max - min + 1)) + min : false;
 }
 
-const generateRandomFloat = function (min, max, floatPrecision) {
-  if ( min >= 0 && max >= 0 ) {
-    return (Math.random() * (max - min + 1) + min).toFixed(floatPrecision);
-  } return false;
+const generateRandomFloat = (min, max, floatPrecision) => {
+  return (min >= 0 && max >= 0 && floatPrecision >= 0) ? (Math.random() * (max - min + 1) + min).toFixed(floatPrecision) : false;
 }
 
 
 const validateStrLength = (str, max) => {
-  return str.length <= max ? true : false;
+  return str.length <= max;
 }
 
 generateRandomInteger(10, 100);
-generateRandomFloat(10, 100, 2);
+generateRandomFloat(10, 100, -2);
 validateStrLength('Should return false, because it\'s too long', 10);
