@@ -40,7 +40,7 @@ const generateRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  false;
+  return false;
 }
 
 const generateRandomFloat = (min, max, floatPrecision) => {
