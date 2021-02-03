@@ -1,7 +1,11 @@
+const LISTING_TITLE = [
+  'Какой-то очень классный заголовок',
+  'Креативный тайтл для листинга',
+]
 const LISTING_DESCRIPTION = [
   'Комфортабельная, почти целая коробка из под холодильника, прийдется по вкусу не только дворовым котам, избалованные вискасом гурманы также останутся довольны',
   'Прохладная землянка, подойдет не только северным мишкам, бобры также останутся довольны',
-  'Гнездо из еловых веток с видом на горы, идеальное место для гордых орлов',
+  'Гнездо из еловых веток с видом на горы - идеальное место для гордых орлов',
 ]
 const LISTING_TYPES = [
   'palace',
@@ -53,7 +57,7 @@ const createAd = () => {
       avatar: `img/avatars/user0${generateRandomInteger(1, 8)}.png`,
     },
     offer: {
-      title: 'Коробка из под холодильника',
+      title: getRandomValueFromArr(LISTING_TITLE),
       address: `${generateRandomFloat(35.65000, 35.70000, 5)},${generateRandomFloat(139.70000, 139.80000, 5)}`,
       price: generateRandomInteger(100, 500),
       type: getRandomValueFromArr(LISTING_TYPES),
@@ -62,7 +66,7 @@ const createAd = () => {
       checkin: getRandomValueFromArr(REGISTER_HOURS),
       checkout: getRandomValueFromArr(REGISTER_HOURS),
       features: FEATURES_LIST,
-      description: LISTING_DESCRIPTION,
+      description: getRandomValueFromArr(LISTING_DESCRIPTION),
       photos: PHOTOS_LIST,
     },
     location: {
