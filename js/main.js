@@ -49,7 +49,9 @@ const generateRandomFloat = (min, max, floatPrecision) => {
     : false;
 }
 
+const distinct = (value, index, self) => self.indexOf(value) === index;
 const getRandomValueFromArr = (arr) => arr[generateRandomInteger(0, arr.length - 1)];
+const getRandomArrFromArr = (arr) => arr.slice(generateRandomInteger(0, arr.length)).filter(distinct);
 
 const createAd = () => {
   return {
@@ -65,9 +67,9 @@ const createAd = () => {
       guests: generateRandomInteger(1, 100),
       checkin: getRandomValueFromArr(REGISTER_HOURS),
       checkout: getRandomValueFromArr(REGISTER_HOURS),
-      features: FEATURES_LIST,
+      features: getRandomArrFromArr(FEATURES_LIST),
       description: getRandomValueFromArr(LISTING_DESCRIPTIONS),
-      photos: PHOTOS_LIST,
+      photos: getRandomArrFromArr(PHOTOS_LIST),
     },
     location: {
       x: generateRandomFloat(35.65000, 35.70000, 5),
