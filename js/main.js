@@ -49,9 +49,9 @@ const generateRandomFloat = (min, max, floatPrecision) => {
     : false;
 }
 
-const distinct = (value, index, self) => self.indexOf(value) === index;
+const defineUniqueValues = (value, index, self) => self.indexOf(value) === index;
 const getRandomValueFromArr = (arr) => arr[generateRandomInteger(0, arr.length - 1)];
-const getRandomArrFromArr = (arr) => arr.slice(generateRandomInteger(0, arr.length)).filter(distinct);
+const getRandomArrFromArr = (arr) => arr.slice(generateRandomInteger(0, arr.length)).filter(defineUniqueValues);
 
 const createAd = () => {
   return {
