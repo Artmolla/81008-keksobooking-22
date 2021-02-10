@@ -3,7 +3,7 @@ import {
   generateRandomFloat,
   getRandomValue,
   generateRandomList
-} from './random.js';
+} from './util.js';
 
 const LISTING_TITLES = [
   'Какой-то очень классный заголовок',
