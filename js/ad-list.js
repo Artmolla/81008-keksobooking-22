@@ -65,8 +65,6 @@ const createAd = () => {
   }
 }
 
-const generateListOfAds = () => {
+export const generateListOfAds = () => {
   return new Array(GENERATE_LIST_OF_ADS_COUNT).fill('').map(() => createAd());
 }
-
-export { generateListOfAds };
