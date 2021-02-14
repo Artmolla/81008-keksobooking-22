@@ -2,7 +2,22 @@ import { generateListOfAds } from './ad-list.js';
 
 const cardTemplate = document.querySelector('#card');
 const cardContainer = document.querySelector('#map-canvas');
+const cardFragment = document.createDocumentFragment();
 const similarAds = generateListOfAds();
+
+function getWordInRightCase(integer, word) {
+  integer = Math.abs(integer) % 100;
+  const integer1 = integer % 10;
+  if (integer > 10 && integer < 20) {
+    return word[2];
+  } else if (integer1 > 1 && integer1 < 5) {
+    return word[1];
+  } else if (integer1 === 1) {
+    return word[0];
+  } else {
+    return word[2];
+  }
+}
 
 const checkListingType = (listingType) => {
   switch (listingType) {
@@ -39,19 +54,19 @@ const populateListingImages = (imagesList, destination) => {
   destination.appendChild(imagesFragment);
 }
 
-similarAds.forEach(({
-  author: {avatar},
-  offer: {title, address, price, type, rooms,guests, checkin, checkout, features, description, photos}}) => {
+similarAds.forEach(({ author, offer }) => {
   const clonedCard = cardTemplate.cloneNode(true).content;
-  clonedCard.querySelector('.popup__title').textContent = title;
-  clonedCard.querySelector('.popup__text--address').textContent = address;
-  clonedCard.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
-  clonedCard.querySelector('.popup__type').textContent = checkListingType(type);
-  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
-  clonedCard.querySelector('.popup__text--time').textContent = `Заезд после ${checkin} выезд до ${checkout}`;
-  populateListingFeatures(features, clonedCard.querySelector('.popup__features'));
-  clonedCard.querySelector('.popup__description').textContent = description;
-  populateListingImages(photos, clonedCard.querySelector('.popup__photos'));
-  clonedCard.querySelector('.popup__avatar').src = avatar;
-  cardContainer.appendChild(clonedCard);
+  clonedCard.querySelector('.popup__title').textContent = offer.title;
+  clonedCard.querySelector('.popup__text--address').textContent = offer.address;
+  clonedCard.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
+  clonedCard.querySelector('.popup__type').textContent = checkListingType(offer.type);
+  clonedCard.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${getWordInRightCase(offer.rooms, ['комната', 'комнаты', 'комнат'])} для ${offer.guests} ${getWordInRightCase(offer.rooms, ['гостя', 'гостей', 'гостей'])}`;
+  clonedCard.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin} выезд до ${offer.checkout}`;
+  populateListingFeatures(offer.features, clonedCard.querySelector('.popup__features'));
+  clonedCard.querySelector('.popup__description').textContent = offer.description;
+  populateListingImages(offer.photos, clonedCard.querySelector('.popup__photos'));
+  clonedCard.querySelector('.popup__avatar').src = author.avatar;
+  cardFragment.appendChild(clonedCard);
 })
+
+cardContainer.appendChild(cardFragment.firstElementChild);
