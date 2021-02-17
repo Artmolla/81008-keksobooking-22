@@ -1,10 +1,15 @@
+const MIN_PRICES = {
+  'bungalow': '0',
+  'flat': '1000',
+  'house': '5000',
+  'palace': '10000',
+}
 const listingTypeSelect = document.querySelector('#type');
 const pricePerNightInput = document.querySelector('#price');
 const checkinTimeSelect = document.querySelector('#timein');
 const checkoutTimeSelect = document.querySelector('#timeout');
-const timeOptions = document.querySelector('.ad-form__element--time');
 
-const setTimeDependence = (checkIn, checkOut) => {
+const setTimeDependance = (checkIn, checkOut) => {
   for (let option of checkOut.children) {
     option.value === checkIn.value
       ? option.selected = true
@@ -12,30 +17,15 @@ const setTimeDependence = (checkIn, checkOut) => {
   }
 }
 
-const getMinPricePerNight = (listingType) => {
-  switch (listingType) {
-    case 'flat':
-      return '1000';
-    case 'bungalow':
-      return '0';
-    case 'house':
-      return '5000';
-    case 'palace':
-      return '10000';
-  }
-}
-
-listingTypeSelect.addEventListener('change', (evt) => {
-  evt.preventDefault();
-  pricePerNightInput.min = getMinPricePerNight(listingTypeSelect.value);
-  pricePerNightInput.placeholder = getMinPricePerNight(listingTypeSelect.value);
+listingTypeSelect.addEventListener('change', () => {
+  pricePerNightInput.min = MIN_PRICES[listingTypeSelect.value];
+  pricePerNightInput.placeholder = MIN_PRICES[listingTypeSelect.value];
 });
 
-timeOptions.addEventListener('change', (evt) => {
-  evt.preventDefault();
-  if (evt.target && evt.target === checkinTimeSelect) {
-    setTimeDependence(checkinTimeSelect, checkoutTimeSelect);
-  } else if (evt.target && evt.target === checkoutTimeSelect) {
-    setTimeDependence(checkoutTimeSelect, checkinTimeSelect);
-  }
+checkinTimeSelect.addEventListener('change', () => {
+  setTimeDependance(checkinTimeSelect, checkoutTimeSelect);
+});
+
+checkoutTimeSelect.addEventListener('change', () => {
+  setTimeDependance(checkoutTimeSelect, checkinTimeSelect);
 });
