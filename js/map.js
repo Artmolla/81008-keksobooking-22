@@ -65,7 +65,7 @@ const mainMarker = L.marker(
   },
 );
 
-adressField.value = `lat: ${MAIN_PIN_COORDINATES.lat}, lng:${MAIN_PIN_COORDINATES.lng}`;
+adressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
 adressField.setAttribute('readonly','readonly');
 
 mainMarker.on('dragend', () => {
