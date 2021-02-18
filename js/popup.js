@@ -6,8 +6,7 @@ const LISTING_TYPES = {
   house: 'Дом',
   palace: 'Дворец',
 }
-export const cardTemplate = document.querySelector('#card');
-export const cardFragment = document.createDocumentFragment();
+export const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 export const similarAds = generateListOfAds();
 
 function getWordInRightCase(integer, word) {
@@ -47,7 +46,7 @@ const populateListingImages = (imagesList, destination) => {
 }
 
 export const createCustomPopup = ({ author, offer }) => {
-  const clonedCard = cardTemplate.cloneNode(true).content;
+  const clonedCard = cardTemplate.cloneNode(true);
   clonedCard.querySelector('.popup__title').textContent = offer.title;
   clonedCard.querySelector('.popup__text--address').textContent = offer.address;
   clonedCard.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;

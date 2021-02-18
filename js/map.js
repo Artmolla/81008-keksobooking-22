@@ -13,7 +13,7 @@ import {
 
 import { adressField } from './form.js';
 
-const mainPinCoordinates = {
+const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
   lng: 139.7655,
 }
@@ -31,7 +31,7 @@ map.on('load', () => {
   enableElements(mapFilters, 'select');
 })
 
-map.setView(mainPinCoordinates, 10);
+map.setView(MAIN_PIN_COORDINATES, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -48,7 +48,7 @@ const mainPinIcon = L.icon({
 });
 
 const pinIcon = L.icon({
-  iconUrl: '/../img/pin.svg',
+  iconUrl: '../img/pin.svg',
   iconSize: [38, 95],
   iconAnchor: [22, 94],
   popupAnchor: [-3, -76],
@@ -65,11 +65,11 @@ const mainMarker = L.marker(
   },
 );
 
-adressField.value = `lat: ${mainPinCoordinates.lat}, lng:${mainPinCoordinates.lng}`;
+adressField.value = `lat: ${MAIN_PIN_COORDINATES.lat}, lng:${MAIN_PIN_COORDINATES.lng}`;
 adressField.setAttribute('readonly','readonly');
 
 mainMarker.on('dragend', () => {
-  adressField.value = `lat: ${mainMarker.getLatLng().lat.toFixed(5)}, lng:${mainMarker.getLatLng().lng.toFixed(5)}`;
+  adressField.value = `${mainMarker.getLatLng().lat.toFixed(5)}, ${mainMarker.getLatLng().lng.toFixed(5)}`;
 })
 
 mainMarker.addTo(map);
