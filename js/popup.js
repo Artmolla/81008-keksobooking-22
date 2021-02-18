@@ -1,15 +1,13 @@
 import { generateListOfAds } from './ad-list.js';
 
 const LISTING_TYPES = {
-  'flat': 'Квартира',
-  'bungalow': 'Бунгало',
-  'house': 'Дом',
-  'palace': 'Дворец',
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
 }
-const cardTemplate = document.querySelector('#card');
-const cardContainer = document.querySelector('#map-canvas');
-const cardFragment = document.createDocumentFragment();
-const similarAds = generateListOfAds();
+export const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+export const similarAds = generateListOfAds();
 
 function getWordInRightCase(integer, word) {
   integer = Math.abs(integer) % 100;
@@ -47,8 +45,8 @@ const populateListingImages = (imagesList, destination) => {
   destination.appendChild(imagesFragment);
 }
 
-similarAds.forEach(({ author, offer }) => {
-  const clonedCard = cardTemplate.cloneNode(true).content;
+export const createCustomPopup = ({ author, offer }) => {
+  const clonedCard = cardTemplate.cloneNode(true);
   clonedCard.querySelector('.popup__title').textContent = offer.title;
   clonedCard.querySelector('.popup__text--address').textContent = offer.address;
   clonedCard.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
@@ -59,7 +57,5 @@ similarAds.forEach(({ author, offer }) => {
   clonedCard.querySelector('.popup__description').textContent = offer.description;
   populateListingImages(offer.photos, clonedCard.querySelector('.popup__photos'));
   clonedCard.querySelector('.popup__avatar').src = author.avatar;
-  cardFragment.appendChild(clonedCard);
-})
-
-cardContainer.appendChild(cardFragment.firstElementChild);
+  return clonedCard;
+}

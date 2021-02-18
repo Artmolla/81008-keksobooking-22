@@ -1,3 +1,5 @@
 import './ad-list.js';
-import './card.js';
+import './popup.js';
 import './form.js';
+import './disable.js';
+import './map.js';

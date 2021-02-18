@@ -59,8 +59,8 @@ const createAd = () => {
       photos: generateRandomList(PHOTOS_LIST),
     },
     location: {
-      x: generateRandomFloat(35.65000, 35.70000, 5),
-      y: generateRandomFloat(139.70000, 139.80000, 5),
+      lat: generateRandomFloat(35.65000, 35.70000, 5),
+      lng: generateRandomFloat(139.70000, 139.80000, 5),
     },
   }
 }

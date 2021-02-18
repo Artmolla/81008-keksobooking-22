@@ -1,15 +1,16 @@
 const MIN_PRICES = {
-  'bungalow': '0',
-  'flat': '1000',
-  'house': '5000',
-  'palace': '10000',
+  bungalow: '0',
+  flat: '1000',
+  house: '5000',
+  palace: '10000',
 }
 const listingTypeSelect = document.querySelector('#type');
 const pricePerNightInput = document.querySelector('#price');
 const checkinTimeSelect = document.querySelector('#timein');
 const checkoutTimeSelect = document.querySelector('#timeout');
+export const adressField = document.querySelector('#address');
 
-const setTimeDependance = (checkIn, checkOut) => {
+const setTimeDependence = (checkIn, checkOut) => {
   for (let option of checkOut.children) {
     option.value === checkIn.value
       ? option.selected = true
@@ -23,9 +24,9 @@ listingTypeSelect.addEventListener('change', () => {
 });
 
 checkinTimeSelect.addEventListener('change', () => {
-  setTimeDependance(checkinTimeSelect, checkoutTimeSelect);
+  setTimeDependence(checkinTimeSelect, checkoutTimeSelect);
 });
 
 checkoutTimeSelect.addEventListener('change', () => {
-  setTimeDependance(checkoutTimeSelect, checkinTimeSelect);
+  setTimeDependence(checkoutTimeSelect, checkinTimeSelect);
 });
