@@ -4,6 +4,12 @@ const MIN_PRICES = {
   house: '5000',
   palace: '10000',
 }
+const GUESTS_BY_ROOM = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
+}
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
@@ -15,7 +21,7 @@ const checkoutTimeSelect = document.querySelector('#timeout');
 const roomQuantityField = document.querySelector('#room_number');
 const guestQuantityField = document.querySelector('#capacity');
 const submitButton = document.querySelector('.ad-form__submit');
-export const adressField = document.querySelector('#address');
+export const addressField = document.querySelector('#address');
 
 const validateInput = (input) => {
   if (input.validity.valueMissing === true) {
@@ -39,18 +45,9 @@ const validatePrice = (input) => {
 
 const setRoomGuestsDependence = (room, guestsList) => {
   for (let guest of guestsList.children) {
-    if (room.value === '1' && guest.value === '1') {
-      guest.selected = true;
+    if (GUESTS_BY_ROOM[room.value].includes(guest.value)) {
       guest.disabled = false;
-    } else if (room.value === '2' && guest.value === '1' || room.value === '2' && guest.value === '2') {
       guest.selected = true;
-      guest.disabled = false;
-    } else if (room.value === '3' && guest.value === '1' || room.value === '3' && guest.value === '2' || room.value === '3' && guest.value === '3') {
-      guest.selected = true;
-      guest.disabled = false;
-    } else if (room.value === '100' && guest.value === '0' || room.value === '0' && guest.value === '100') {
-      guest.selected = true;
-      guest.disabled = false;
     } else {
       guest.disabled = true;
     }
@@ -64,6 +61,8 @@ const setTimeDependence = (checkIn, checkOut) => {
       : option.selected = false;
   }
 }
+
+setRoomGuestsDependence(roomQuantityField, guestQuantityField);
 
 listingTitle.addEventListener('input', () => {
   const listingTitleLength = listingTitle.value.length;
@@ -91,15 +90,12 @@ checkoutTimeSelect.addEventListener('change', () => {
   setTimeDependence(checkoutTimeSelect, checkinTimeSelect);
 });
 
-guestQuantityField.addEventListener('change', () => {
-  setRoomGuestsDependence(guestQuantityField, roomQuantityField);
-})
 roomQuantityField.addEventListener('change', () => {
   setRoomGuestsDependence(roomQuantityField, guestQuantityField);
-})
+});
 
 submitButton.addEventListener('click', () => {
   validateInput(listingTitle);
   validateInput(pricePerNightInput);
   validatePrice(pricePerNightInput);
-})
+});
