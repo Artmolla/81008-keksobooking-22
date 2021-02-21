@@ -11,7 +11,7 @@ import {
   createCustomPopup
 } from './popup.js';
 
-import { adressField } from './form.js';
+import { addressField } from './form.js';
 
 const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
@@ -65,11 +65,11 @@ const mainMarker = L.marker(
   },
 );
 
-adressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
-adressField.setAttribute('readonly','readonly');
+addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
+addressField.setAttribute('readonly','readonly');
 
 mainMarker.on('dragend', () => {
-  adressField.value = `${mainMarker.getLatLng().lat.toFixed(5)}, ${mainMarker.getLatLng().lng.toFixed(5)}`;
+  addressField.value = `${mainMarker.getLatLng().lat.toFixed(5)}, ${mainMarker.getLatLng().lng.toFixed(5)}`;
 })
 
 mainMarker.addTo(map);
