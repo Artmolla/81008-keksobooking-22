@@ -1,5 +1,5 @@
 import { renderSimilarAds } from './map.js';
-import { createErrorPopup } from './popup.js'
+import { createFetchErrorPopup } from './popup.js'
 
 const mapContainer = document.querySelector('.map');
 
@@ -14,6 +14,5 @@ fetch('https://22.javascript.pages.academy/keksobooking/data')
     renderSimilarAds(data);
   })
   .catch((err) => {
-    mapContainer.appendChild(createErrorPopup(err));
-  })
-
+    mapContainer.appendChild(createFetchErrorPopup(err));
+  });

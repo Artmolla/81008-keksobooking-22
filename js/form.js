@@ -1,3 +1,14 @@
+import {
+  createSuccessPopup,
+  createErrorMessagePopup,
+  showMessagePopup
+} from './popup.js';
+
+import {
+  MAIN_PIN_COORDINATES,
+  mainMarker
+} from './map.js';
+
 const MIN_PRICES = {
   bungalow: '0',
   flat: '1000',
@@ -13,6 +24,8 @@ const GUESTS_BY_ROOM = {
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
+const mainContent = document.querySelector('main');
+const adForm = document.querySelector('.ad-form');
 const listingTitle = document.querySelector('#title');
 const listingTypeSelect = document.querySelector('#type');
 const pricePerNightInput = document.querySelector('#price');
@@ -105,3 +118,32 @@ submitButton.addEventListener('click', () => {
   validatePrice(pricePerNightInput);
   validateTitleInput(listingTitle);
 });
+
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target);
+
+  fetch('https://22.javascript.pages.academy/keksobookin',
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        showMessagePopup(mainContent, createSuccessPopup());
+        adForm.reset();
+        addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
+      } else {
+        showMessagePopup(mainContent, createErrorMessagePopup());
+      }
+    });
+});
+
+adForm.addEventListener('reset', () => {
+  mainMarker.setLatLng(MAIN_PIN_COORDINATES);
+  setTimeout(() => {
+    addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
+  }, 1)
+})

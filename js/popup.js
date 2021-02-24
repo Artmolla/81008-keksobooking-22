@@ -6,7 +6,9 @@ const LISTING_TYPES = {
 }
 
 export const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-export const errorMessageTemplate = document.querySelector('#fetch-error').content.querySelector('.fetch-error');
+export const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+export const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+export const fetchErrorMessageTemplate = document.querySelector('#fetch-error').content.querySelector('.fetch-error');
 
 function getWordInRightCase(integer, word) {
   integer = Math.abs(integer) % 100;
@@ -59,8 +61,24 @@ export const createCustomPopup = ({ author, offer }) => {
   return clonedCard;
 }
 
-export const createErrorPopup = (err) => {
+export const createFetchErrorPopup = (err) => {
+  const clonedFetchErrorMessage = fetchErrorMessageTemplate.cloneNode(true);
+  clonedFetchErrorMessage.querySelector('.fetch-error__message').textContent = err;
+  return clonedFetchErrorMessage;
+}
+
+export const createSuccessPopup = () => {
+  const clonedSuccessMessage = successMessageTemplate.cloneNode(true);
+  return clonedSuccessMessage;
+}
+
+export const createErrorMessagePopup = () => {
   const clonedErrorMessage = errorMessageTemplate.cloneNode(true);
-  clonedErrorMessage.querySelector('.fetch-error__message').textContent = err;
   return clonedErrorMessage;
+}
+
+export const showMessagePopup = (parent, message) => {
+  parent.appendChild(message);
+  message.addEventListener('click', () => message.remove());
+  window.addEventListener('keydown', (evt) => evt.key === 'Escape' ? message.remove() : null);
 }

@@ -10,7 +10,7 @@ import { createCustomPopup } from './popup.js';
 
 import { addressField } from './form.js';
 
-const MAIN_PIN_COORDINATES = {
+export const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
   lng: 139.7655,
 }
@@ -51,10 +51,10 @@ export const pinIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const mainMarker = L.marker(
+export let mainMarker = L.marker(
   {
-    lat: 35.6762,
-    lng: 139.6503,
+    lat: 35.6801,
+    lng: 139.7655,
   },
   {
     draggable: true,
