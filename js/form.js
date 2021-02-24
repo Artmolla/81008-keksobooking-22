@@ -23,7 +23,7 @@ const guestQuantityField = document.querySelector('#capacity');
 const submitButton = document.querySelector('.ad-form__submit');
 export const addressField = document.querySelector('#address');
 
-const validateInput = (input) => {
+const validateTitleInput = (input) => {
   if (input.validity.valid === false) {
     input.classList.add('invalid');
   } else if (input.validity.valueMissing === true) {
@@ -41,9 +41,13 @@ const validateInput = (input) => {
 }
 
 const validatePrice = (input) => {
-  input.value > MIN_PRICES[listingTypeSelect.value]
-    ? input.setCustomValidity('')
-    : input.setCustomValidity(`Минимальная цена для этого типа сoставляет ${MIN_PRICES[listingTypeSelect.value]}`);
+  if (input.value >= MIN_PRICES[listingTypeSelect.value]) {
+    input.setCustomValidity('');
+    input.classList.remove('invalid');
+  } else {
+    input.classList.add('invalid');
+    input.setCustomValidity(`Минимальная цена для этого типа сoставляет ${MIN_PRICES[listingTypeSelect.value]}`);
+  }
 }
 
 const setRoomGuestsDependence = (room, guestsList) => {
@@ -99,6 +103,5 @@ roomQuantityField.addEventListener('change', () => {
 
 submitButton.addEventListener('click', () => {
   validatePrice(pricePerNightInput);
-  validateInput(listingTitle);
-  validateInput(pricePerNightInput);
+  validateTitleInput(listingTitle);
 });
