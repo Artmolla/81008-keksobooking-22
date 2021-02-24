@@ -124,7 +124,7 @@ adForm.addEventListener('submit', (evt) => {
 
   const formData = new FormData(evt.target);
 
-  fetch('https://22.javascript.pages.academy/keksobookin',
+  fetch('https://22.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
       body: formData,
