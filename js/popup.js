@@ -1,13 +1,12 @@
-import { generateListOfAds } from './ad-list.js';
-
 const LISTING_TYPES = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
 }
+
 export const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-export const similarAds = generateListOfAds();
+export const errorMessageTemplate = document.querySelector('#fetch-error').content.querySelector('.fetch-error');
 
 function getWordInRightCase(integer, word) {
   integer = Math.abs(integer) % 100;
@@ -58,4 +57,10 @@ export const createCustomPopup = ({ author, offer }) => {
   populateListingImages(offer.photos, clonedCard.querySelector('.popup__photos'));
   clonedCard.querySelector('.popup__avatar').src = author.avatar;
   return clonedCard;
+}
+
+export const createErrorPopup = (err) => {
+  const clonedErrorMessage = errorMessageTemplate.cloneNode(true);
+  clonedErrorMessage.querySelector('.fetch-error__message').textContent = err;
+  return clonedErrorMessage;
 }

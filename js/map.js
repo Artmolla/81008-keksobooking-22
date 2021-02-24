@@ -6,10 +6,7 @@ import {
   enableElements
 } from './disable.js';
 
-import {
-  similarAds,
-  createCustomPopup
-} from './popup.js';
+import { createCustomPopup } from './popup.js';
 
 import { addressField } from './form.js';
 
@@ -18,7 +15,7 @@ const MAIN_PIN_COORDINATES = {
   lng: 139.7655,
 }
 
-const map = L.map('map-canvas');
+export const map = L.map('map-canvas');
 
 map.on('load', () => {
   adForm.classList.remove('ad-form--disabled');
@@ -47,7 +44,7 @@ const mainPinIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-const pinIcon = L.icon({
+export const pinIcon = L.icon({
   iconUrl: '../img/pin.svg',
   iconSize: [38, 95],
   iconAnchor: [22, 94],
@@ -66,7 +63,7 @@ const mainMarker = L.marker(
 );
 
 addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
-addressField.setAttribute('readonly','readonly');
+addressField.setAttribute('readonly', 'readonly');
 
 mainMarker.on('dragend', () => {
   addressField.value = `${mainMarker.getLatLng().lat.toFixed(5)}, ${mainMarker.getLatLng().lng.toFixed(5)}`;
@@ -74,18 +71,20 @@ mainMarker.on('dragend', () => {
 
 mainMarker.addTo(map);
 
-similarAds.forEach(({ author, offer, location: { lat, lng } }) => {
-  const marker = L.marker({
-    lat,
-    lng,
-  },
-  {
-    keepInView: true,
-    icon: pinIcon,
-  },
-  );
+export const renderSimilarAds = (similarAdsList) => {
+  similarAdsList.forEach(({ author, offer, location: { lat, lng } }) => {
+    const marker = L.marker({
+      lat,
+      lng,
+    },
+    {
+      keepInView: true,
+      icon: pinIcon,
+    },
+    );
 
-  marker
-    .addTo(map)
-    .bindPopup(createCustomPopup({ author, offer }));
-});
+    marker
+      .addTo(map)
+      .bindPopup(createCustomPopup({ author, offer }));
+  });
+}

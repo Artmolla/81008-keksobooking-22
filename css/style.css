@@ -946,6 +946,21 @@ fieldset {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.fetch-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 50px;
+  border: 1px solid black;
+  background-color: #f0f0ea;
+  opacity: 0.9;
+  text-align: center;
+  z-index: 1000;
+}
+
 .success__message,
 .error__message {
   position: relative;
