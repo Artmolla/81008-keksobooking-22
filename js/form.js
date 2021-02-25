@@ -1,3 +1,10 @@
+import {
+  MAIN_PIN_COORDINATES,
+  mainMarker
+} from './map.js';
+
+import { sendData } from './data.js';
+
 const MIN_PRICES = {
   bungalow: '0',
   flat: '1000',
@@ -13,6 +20,7 @@ const GUESTS_BY_ROOM = {
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
+export const adForm = document.querySelector('.ad-form');
 const listingTitle = document.querySelector('#title');
 const listingTypeSelect = document.querySelector('#type');
 const pricePerNightInput = document.querySelector('#price');
@@ -23,7 +31,7 @@ const guestQuantityField = document.querySelector('#capacity');
 const submitButton = document.querySelector('.ad-form__submit');
 export const addressField = document.querySelector('#address');
 
-const validateInput = (input) => {
+const validateTitleInput = (input) => {
   if (input.validity.valid === false) {
     input.classList.add('invalid');
   } else if (input.validity.valueMissing === true) {
@@ -41,9 +49,13 @@ const validateInput = (input) => {
 }
 
 const validatePrice = (input) => {
-  input.value > MIN_PRICES[listingTypeSelect.value]
-    ? input.setCustomValidity('')
-    : input.setCustomValidity(`Минимальная цена для этого типа сoставляет ${MIN_PRICES[listingTypeSelect.value]}`);
+  if (input.value >= MIN_PRICES[listingTypeSelect.value]) {
+    input.setCustomValidity('');
+    input.classList.remove('invalid');
+  } else {
+    input.classList.add('invalid');
+    input.setCustomValidity(`Минимальная цена для этого типа сoставляет ${MIN_PRICES[listingTypeSelect.value]}`);
+  }
 }
 
 const setRoomGuestsDependence = (room, guestsList) => {
@@ -99,6 +111,19 @@ roomQuantityField.addEventListener('change', () => {
 
 submitButton.addEventListener('click', () => {
   validatePrice(pricePerNightInput);
-  validateInput(listingTitle);
-  validateInput(pricePerNightInput);
+  validateTitleInput(listingTitle);
 });
+
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target);
+  sendData(formData);
+});
+
+adForm.addEventListener('reset', () => {
+  mainMarker.setLatLng(MAIN_PIN_COORDINATES);
+  setTimeout(() => {
+    addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
+  }, 0)
+})

@@ -1,13 +1,11 @@
-import { generateListOfAds } from './ad-list.js';
-
 const LISTING_TYPES = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
 }
+
 export const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-export const similarAds = generateListOfAds();
 
 function getWordInRightCase(integer, word) {
   integer = Math.abs(integer) % 100;

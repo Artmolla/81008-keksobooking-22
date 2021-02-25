@@ -6,19 +6,20 @@ import {
   enableElements
 } from './disable.js';
 
-import {
-  similarAds,
-  createCustomPopup
-} from './popup.js';
+import { createCustomPopup } from './popup.js';
 
 import { addressField } from './form.js';
 
-const MAIN_PIN_COORDINATES = {
+import { getData } from './data.js';
+
+export const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
   lng: 139.7655,
 }
 
-const map = L.map('map-canvas');
+const mapContainer = document.querySelector('.map');
+
+export const map = L.map('map-canvas');
 
 map.on('load', () => {
   adForm.classList.remove('ad-form--disabled');
@@ -41,23 +42,23 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [38, 95],
   iconAnchor: [22, 94],
   popupAnchor: [-3, -76],
 });
 
-const pinIcon = L.icon({
-  iconUrl: '../img/pin.svg',
+export const pinIcon = L.icon({
+  iconUrl: 'img/pin.svg',
   iconSize: [38, 95],
   iconAnchor: [22, 94],
   popupAnchor: [-3, -76],
 });
 
-const mainMarker = L.marker(
+export const mainMarker = L.marker(
   {
-    lat: 35.6762,
-    lng: 139.6503,
+    lat: 35.6801,
+    lng: 139.7655,
   },
   {
     draggable: true,
@@ -66,7 +67,7 @@ const mainMarker = L.marker(
 );
 
 addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
-addressField.setAttribute('readonly','readonly');
+addressField.setAttribute('readonly', 'readonly');
 
 mainMarker.on('dragend', () => {
   addressField.value = `${mainMarker.getLatLng().lat.toFixed(5)}, ${mainMarker.getLatLng().lng.toFixed(5)}`;
@@ -74,18 +75,22 @@ mainMarker.on('dragend', () => {
 
 mainMarker.addTo(map);
 
-similarAds.forEach(({ author, offer, location: { lat, lng } }) => {
-  const marker = L.marker({
-    lat,
-    lng,
-  },
-  {
-    keepInView: true,
-    icon: pinIcon,
-  },
-  );
+export const renderSimilarAds = (similarAdsList) => {
+  similarAdsList.forEach(({ author, offer, location: { lat, lng } }) => {
+    const marker = L.marker({
+      lat,
+      lng,
+    },
+    {
+      keepInView: true,
+      icon: pinIcon,
+    },
+    );
 
-  marker
-    .addTo(map)
-    .bindPopup(createCustomPopup({ author, offer }));
-});
+    marker
+      .addTo(map)
+      .bindPopup(createCustomPopup({ author, offer }));
+  });
+};
+
+getData(mapContainer);
