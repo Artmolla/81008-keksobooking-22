@@ -10,10 +10,14 @@ import { createCustomPopup } from './popup.js';
 
 import { addressField } from './form.js';
 
+import { getData } from './data.js';
+
 export const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
   lng: 139.7655,
 }
+
+const mapContainer = document.querySelector('.map');
 
 export const map = L.map('map-canvas');
 
@@ -51,7 +55,7 @@ export const pinIcon = L.icon({
   popupAnchor: [-3, -76],
 });
 
-export let mainMarker = L.marker(
+export const mainMarker = L.marker(
   {
     lat: 35.6801,
     lng: 139.7655,
@@ -87,4 +91,6 @@ export const renderSimilarAds = (similarAdsList) => {
       .addTo(map)
       .bindPopup(createCustomPopup({ author, offer }));
   });
-}
+};
+
+getData(mapContainer);
