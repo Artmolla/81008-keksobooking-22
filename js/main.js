@@ -4,3 +4,4 @@ import './map.js';
 import './data.js';
 import './form.js';
 import './disable.js';
+import './filter.js';

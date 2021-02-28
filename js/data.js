@@ -1,5 +1,4 @@
 import {
-  renderSimilarAds,
   MAIN_PIN_COORDINATES
 } from './map.js';
 
@@ -17,19 +16,14 @@ import {
 
 const mainContent = document.querySelector('main');
 
-export const getData = (destination) => {
+export const getData = (onSuccess, errorDestination) => {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(`${response.status} ${response.statusText}`);
-    })
+    .then((response) => response.json())
     .then((data) => {
-      renderSimilarAds(data);
+      onSuccess(data);
     })
     .catch((err) => {
-      destination.appendChild(createFetchErrorPopup(err));
+      errorDestination.appendChild(createFetchErrorPopup(err));
     });
 };
 

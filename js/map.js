@@ -1,10 +1,11 @@
 /* global L:readonly */
 
 import {
-  mapFilters,
   adForm,
   enableElements
 } from './disable.js';
+
+import { mapFilters } from './filter.js';
 
 import { createCustomPopup } from './popup.js';
 
@@ -12,12 +13,14 @@ import { addressField } from './form.js';
 
 import { getData } from './data.js';
 
+import { GENERATE_LIST_OF_ADS_COUNT } from './ad-list.js';
+
 export const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
   lng: 139.7655,
 }
 
-const mapContainer = document.querySelector('.map');
+export const mapContainer = document.querySelector('.map');
 
 export const map = L.map('map-canvas');
 
@@ -76,6 +79,7 @@ mainMarker.on('dragend', () => {
 mainMarker.addTo(map);
 
 export const renderSimilarAds = (similarAdsList) => {
+  similarAdsList.length > GENERATE_LIST_OF_ADS_COUNT ? similarAdsList.length = GENERATE_LIST_OF_ADS_COUNT : null;
   similarAdsList.forEach(({ author, offer, location: { lat, lng } }) => {
     const marker = L.marker({
       lat,
@@ -93,4 +97,12 @@ export const renderSimilarAds = (similarAdsList) => {
   });
 };
 
-getData(mapContainer);
+export const removeUnmatchedAds = () => {
+  map.eachLayer((marker) => {
+    if (marker instanceof L.Marker && marker !== mainMarker) {
+      marker.remove();
+    }
+  })
+};
+
+getData((data) => renderSimilarAds(data), mapContainer);
