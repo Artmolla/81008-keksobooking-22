@@ -87,8 +87,7 @@ mainMarker.on('dragend', () => {
 mainMarker.addTo(map);
 
 export const renderSimilarAds = (similarAdsList) => {
-  similarAdsList.length > GENERATE_LIST_OF_ADS_COUNT ? similarAdsList.length = GENERATE_LIST_OF_ADS_COUNT : null;
-  similarAdsList.forEach(({ author, offer, location: { lat, lng } }) => {
+  similarAdsList.slice(0, GENERATE_LIST_OF_ADS_COUNT).forEach(({ author, offer, location: { lat, lng } }) => {
     const marker = L.marker({
       lat,
       lng,
