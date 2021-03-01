@@ -6,12 +6,9 @@ import {
 } from './disable.js';
 
 import {
-  filterByType,
-  filterByPrice,
-  filterByRoom,
-  filterByGuests,
-  filterByFeatures
+  filterAll
 } from './filter.js';
+
 
 import { mapFilters } from './filter.js';
 
@@ -113,20 +110,10 @@ export const removeUnmatchedAds = () => {
 };
 
 getData((data) => {
-  renderSimilarAds(data)
+  renderSimilarAds(data);
   mapFilters.addEventListener('change', (evt) => {
     removeUnmatchedAds();
-    if (evt.target.name === 'housing-type') {
-      renderSimilarAds(filterByType(data));
-    } else if (evt.target.name === 'housing-price') {
-      renderSimilarAds(filterByPrice(data));
-    } else if (evt.target.name === 'housing-rooms') {
-      renderSimilarAds(filterByRoom(data));
-    } else if (evt.target.name === 'housing-guests') {
-      renderSimilarAds(filterByGuests(data));
-    } else if (evt.target.name === 'features') {
-      renderSimilarAds(filterByFeatures(data));
-    }
+    renderSimilarAds(filterAll(data));
   });
 }, mapContainer);
 

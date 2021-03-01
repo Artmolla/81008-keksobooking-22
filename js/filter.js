@@ -15,33 +15,9 @@ export const filterByPrice = (data) => {
     case 'middle':
       return data.filter((listing) => listing.offer.price >= 1000 && listing.offer.price <= 50000);
     case 'high':
-      return data.filter((listing) => listing.offer.price >= 5000);
-    default:
+      return data.filter((listing) => listing.offer.price >= 50000);
+    case 'any':
       return data;
-  }
-};
-
-export const filterByRoom = (data) => {
-  if (roomSelect.value === '1') {
-    return data.filter((listing) => listing.offer.rooms === 1);
-  } else if (roomSelect.value === '2') {
-    return data.filter((listing) => listing.offer.rooms === 2);
-  } else if (roomSelect.value === '3') {
-    return data.filter((listing) => listing.offer.rooms === 3);
-  } else {
-    return data;
-  }
-};
-
-export const filterByGuests = (data) => {
-  if (guestSelect.value === '1') {
-    return data.filter((listing) => listing.offer.guests === 1);
-  } else if (guestSelect.value === '2') {
-    return data.filter((listing) => listing.offer.guests === 2);
-  } else if (guestSelect.value === '0') {
-    return data.filter((listing) => listing.offer.guests > 2);
-  } else {
-    return data;
   }
 };
 
@@ -54,3 +30,11 @@ export const filterByFeatures = (data) => {
     }
   }
 };
+
+export const filterAll = (data) => {
+  return data.filter((listing) => {
+    return (listing.offer.type === typeSelect.value || typeSelect.value === 'any')
+      && (listing.offer.rooms === +roomSelect.value || roomSelect.value === 'any')
+      && (listing.offer.guests === +guestSelect.value || guestSelect.value === 'any');
+  })
+}
