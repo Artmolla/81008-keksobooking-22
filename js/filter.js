@@ -6,25 +6,18 @@ const guestSelect = mapFilters.querySelector('#housing-guests');
 const featuresField = mapFilters.querySelector('#housing-features');
 const featuresList = featuresField.querySelectorAll('.map__checkbox');
 
-import {
-  mapContainer,
-  removeUnmatchedAds,
-  renderSimilarAds
-} from './map.js';
-
-import { getData } from './data.js';
-
 export const filterByType = (data) => data.filter((listing) => listing.offer.type === typeSelect.value || typeSelect.value === 'any');
 
 export const filterByPrice = (data) => {
-  if (priceSelect.value === 'low') {
-    return data.filter((listing) => listing.offer.price <= 1000);
-  } else if (priceSelect.value === 'middle') {
-    return data.filter((listing) => listing.offer.price >= 1000 && listing.offer.price <= 50000);
-  } else if (priceSelect.value === 'high') {
-    return data.filter((listing) => listing.offer.price >= 5000);
-  } else {
-    return data;
+  switch (priceSelect.value) {
+    case 'low':
+      return data.filter((listing) => listing.offer.price <= 1000);
+    case 'middle':
+      return data.filter((listing) => listing.offer.price >= 1000 && listing.offer.price <= 50000);
+    case 'high':
+      return data.filter((listing) => listing.offer.price >= 5000);
+    default:
+      return data;
   }
 };
 
