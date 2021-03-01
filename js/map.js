@@ -5,6 +5,14 @@ import {
   enableElements
 } from './disable.js';
 
+import {
+  filterByType,
+  filterByPrice,
+  filterByRoom,
+  filterByGuests,
+  filterByFeatures
+} from './filter.js';
+
 import { mapFilters } from './filter.js';
 
 import { createCustomPopup } from './popup.js';
@@ -105,4 +113,21 @@ export const removeUnmatchedAds = () => {
   })
 };
 
-getData((data) => renderSimilarAds(data), mapContainer);
+getData((data) => {
+  renderSimilarAds(data)
+  mapFilters.addEventListener('change', (evt) => {
+    removeUnmatchedAds();
+    if (evt.target.name === 'housing-type') {
+      renderSimilarAds(filterByType(data));
+    } else if (evt.target.name === 'housing-price') {
+      renderSimilarAds(filterByPrice(data));
+    } else if (evt.target.name === 'housing-rooms') {
+      renderSimilarAds(filterByRoom(data));
+    } else if (evt.target.name === 'housing-guests') {
+      renderSimilarAds(filterByGuests(data));
+    } else if (evt.target.name === 'features') {
+      renderSimilarAds(filterByFeatures(data));
+    }
+  });
+}, mapContainer);
+

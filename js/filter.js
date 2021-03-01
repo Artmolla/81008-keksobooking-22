@@ -14,9 +14,9 @@ import {
 
 import { getData } from './data.js';
 
-const filterByType = (data) => data.filter((listing) => listing.offer.type === typeSelect.value || typeSelect.value === 'any');
+export const filterByType = (data) => data.filter((listing) => listing.offer.type === typeSelect.value || typeSelect.value === 'any');
 
-const filterByPrice = (data) => {
+export const filterByPrice = (data) => {
   if (priceSelect.value === 'low') {
     return data.filter((listing) => listing.offer.price <= 1000);
   } else if (priceSelect.value === 'middle') {
@@ -28,7 +28,7 @@ const filterByPrice = (data) => {
   }
 };
 
-const filterByRoom = (data) => {
+export const filterByRoom = (data) => {
   if (roomSelect.value === '1') {
     return data.filter((listing) => listing.offer.rooms === 1);
   } else if (roomSelect.value === '2') {
@@ -40,7 +40,7 @@ const filterByRoom = (data) => {
   }
 };
 
-const filterByGuests = (data) => {
+export const filterByGuests = (data) => {
   if (guestSelect.value === '1') {
     return data.filter((listing) => listing.offer.guests === 1);
   } else if (guestSelect.value === '2') {
@@ -52,7 +52,7 @@ const filterByGuests = (data) => {
   }
 };
 
-const filterByFeatures = (data) => {
+export const filterByFeatures = (data) => {
   for (let feature of featuresList) {
     if (feature.checked === true) {
       return data.filter((listing) => listing.offer.features.includes(feature.value));
@@ -60,19 +60,4 @@ const filterByFeatures = (data) => {
       return data;
     }
   }
-}
-
-mapFilters.addEventListener('change', (evt) => {
-  removeUnmatchedAds();
-  if(evt.target.name === 'housing-type') {
-    getData((data) => renderSimilarAds(filterByType(data)), mapContainer);
-  } else if (evt.target.name === 'housing-price') {
-    getData((data) => renderSimilarAds(filterByPrice(data)), mapContainer);
-  } else if(evt.target.name === 'housing-rooms') {
-    getData((data) => renderSimilarAds(filterByRoom(data)), mapContainer);
-  } else if (evt.target.name === 'housing-guests') {
-    getData((data) => renderSimilarAds(filterByGuests(data)), mapContainer);
-  } else if (evt.target.name === 'features') {
-    getData((data) => renderSimilarAds(filterByFeatures(data)), mapContainer);
-  }
-});
+};
