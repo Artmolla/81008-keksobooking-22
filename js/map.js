@@ -111,7 +111,7 @@ export const removeUnmatchedAds = () => {
 
 getData((data) => {
   renderSimilarAds(data);
-  mapFilters.addEventListener('change', (evt) => {
+  mapFilters.addEventListener('change', () => {
     removeUnmatchedAds();
     renderSimilarAds(filterAll(data));
   });
