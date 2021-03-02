@@ -1,4 +1,5 @@
-export const mapFilters = document.querySelector('.map__filters');
+import { mapFilters } from './filter.js';
+
 export const adForm = document.querySelector('.ad-form');
 
 const disableElements = (parent, selector) => {

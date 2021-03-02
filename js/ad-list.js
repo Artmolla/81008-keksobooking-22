@@ -38,7 +38,7 @@ const PHOTOS_LIST = [
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
-const GENERATE_LIST_OF_ADS_COUNT = 10;
+export const GENERATE_LIST_OF_ADS_COUNT = 10;
 
 const createAd = () => {
   return {
