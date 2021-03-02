@@ -4,9 +4,6 @@ const priceSelect = mapFilters.querySelector('#housing-price');
 const roomSelect = mapFilters.querySelector('#housing-rooms');
 const guestSelect = mapFilters.querySelector('#housing-guests');
 const featuresField = mapFilters.querySelector('#housing-features');
-const featuresList = featuresField.querySelectorAll('.map__checkbox');
-
-export const filterByType = (data) => data.filter((listing) => listing.offer.type === typeSelect.value || typeSelect.value === 'any');
 
 export const filterByPrice = (data) => {
   switch (priceSelect.value) {
@@ -22,19 +19,17 @@ export const filterByPrice = (data) => {
 };
 
 export const filterByFeatures = (data) => {
-  for (let feature of featuresList) {
-    if (feature.checked === true) {
-      return data.filter((listing) => listing.offer.features.includes(feature.value));
-    } else {
-      return data;
-    }
-  }
+  const selectedFeatures = [].map.call(featuresField.querySelectorAll('input:checked'), (input) => input.value);
+
+  return data.filter(({offer: { features }}) => {
+    return selectedFeatures.every((feature) => features.includes(feature));
+  })
 };
 
 export const filterAll = (data) => {
-  return data.filter((listing) => {
-    return (listing.offer.type === typeSelect.value || typeSelect.value === 'any')
+  return filterByFeatures(filterByPrice(data.filter((listing) => {
+    return (listing.offer.type === typeSelect.value|| typeSelect.value === 'any')
       && (listing.offer.rooms === +roomSelect.value || roomSelect.value === 'any')
       && (listing.offer.guests === +guestSelect.value || guestSelect.value === 'any');
-  })
+  })))
 }

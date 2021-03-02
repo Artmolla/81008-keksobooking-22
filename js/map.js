@@ -5,10 +5,7 @@ import {
   enableElements
 } from './disable.js';
 
-import {
-  filterAll
-} from './filter.js';
-
+import { filterAll } from './filter.js';
 
 import { mapFilters } from './filter.js';
 
@@ -116,4 +113,3 @@ getData((data) => {
     renderSimilarAds(filterAll(data));
   });
 }, mapContainer);
-
