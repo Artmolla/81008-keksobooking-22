@@ -5,10 +5,7 @@ import {
   enableElements
 } from './disable.js';
 
-import {
-  filterAll
-} from './filter.js';
-
+import { filterAll } from './filter.js';
 
 import { mapFilters } from './filter.js';
 
@@ -20,6 +17,8 @@ import { getData } from './data.js';
 
 import { GENERATE_LIST_OF_ADS_COUNT } from './ad-list.js';
 
+import { debounce } from './debounce.js';
+
 export const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
   lng: 139.7655,
@@ -28,6 +27,8 @@ export const MAIN_PIN_COORDINATES = {
 export const mapContainer = document.querySelector('.map');
 
 export const map = L.map('map-canvas');
+
+const RENDER_DELAY = 500;
 
 map.on('load', () => {
   adForm.classList.remove('ad-form--disabled');
@@ -112,8 +113,9 @@ export const removeUnmatchedAds = () => {
 getData((data) => {
   renderSimilarAds(data);
   mapFilters.addEventListener('change', () => {
-    removeUnmatchedAds();
-    renderSimilarAds(filterAll(data));
+    (debounce(() => {
+      removeUnmatchedAds();
+      renderSimilarAds(filterAll(data));
+    }, RENDER_DELAY))();
   });
 }, mapContainer);
-
