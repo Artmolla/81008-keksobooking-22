@@ -5,13 +5,12 @@ const roomSelect = mapFilters.querySelector('#housing-rooms');
 const guestSelect = mapFilters.querySelector('#housing-guests');
 const featuresField = mapFilters.querySelector('#housing-features');
 
-
 export const filterByPrice = (listing) => {
   switch (priceSelect.value) {
     case 'low':
       return listing.offer.price <= 1000;
     case 'middle':
-      return listing.offer.price <= 50000;
+      return listing.offer.price >= 1000 && listing.offer.price <= 50000;
     case 'high':
       return listing.offer.price >= 50000;
     case 'any':
