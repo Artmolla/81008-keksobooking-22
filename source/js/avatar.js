@@ -5,9 +5,9 @@ const IMAGE_DIMENTION = {
 }
 
 const avatarUploadButton = document.querySelector('.ad-form__field input[type=file]');
-const avatarPreviewContainer = document.querySelector('.ad-form-header__preview img');
+export const avatarPreviewContainer = document.querySelector('.ad-form-header__preview img');
 const listingPhotoUploadButton = document.querySelector('.ad-form__upload input[type=file]');
-const listingPhotoPreviewContainer = document.querySelector('.ad-form__photo');
+export const listingPhotoPreviewContainer = document.querySelector('.ad-form__photo');
 
 const uploadImage = (uploadEntry, previewContainer) => {
   const file = uploadEntry.files[0];

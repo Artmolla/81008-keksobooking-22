@@ -5,19 +5,26 @@ import {
   enableElements
 } from './disable.js';
 
-import { filterAll } from './filter.js';
-
-import { mapFilters } from './filter.js';
+import {
+  filterAll,
+  mapFilters
+} from './filter.js';
 
 import { createCustomPopup } from './popup.js';
 
-import { addressField } from './form.js';
+import {
+  addressField,
+  submitButton,
+  resetButton
+} from './form.js';
 
 import { getData } from './data.js';
 
 import { GENERATE_LIST_OF_ADS_COUNT } from './ad-list.js';
 
 import { debounce } from './debounce.js';
+
+import { resetForm } from './reset.js';
 
 const RENDER_DELAY = 500;
 
@@ -118,4 +125,11 @@ getData((data) => {
       renderSimilarAds(filterAll(data));
     }, RENDER_DELAY))();
   });
+
+  resetButton.addEventListener('click', () => {
+    resetForm();
+    renderSimilarAds(data);
+  });
+
+  submitButton.addEventListener('click', () => renderSimilarAds(data))
 }, mapContainer);

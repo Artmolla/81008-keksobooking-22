@@ -28,8 +28,9 @@ const checkinTimeSelect = document.querySelector('#timein');
 const checkoutTimeSelect = document.querySelector('#timeout');
 const roomQuantityField = document.querySelector('#room_number');
 const guestQuantityField = document.querySelector('#capacity');
-const submitButton = document.querySelector('.ad-form__submit');
+export const submitButton = document.querySelector('.ad-form__submit');
 export const addressField = document.querySelector('#address');
+export const resetButton = document.querySelector('.ad-form__reset');
 
 const validateTitleInput = (input) => {
   if (!input.validity.valid) {
@@ -126,4 +127,4 @@ adForm.addEventListener('reset', () => {
   setTimeout(() => {
     addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
   }, 0)
-})
+});
