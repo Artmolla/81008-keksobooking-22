@@ -44,8 +44,6 @@ map.on('load', () => {
   enableElements(adForm, 'select');
   enableElements(adForm, 'button');
   enableElements(adForm, 'textarea');
-  enableElements(mapFilters, 'input');
-  enableElements(mapFilters, 'select');
 })
 
 map.setView(MAIN_PIN_COORDINATES, 10);
@@ -119,6 +117,8 @@ export const removeUnmatchedAds = () => {
 
 getData((data) => {
   renderSimilarAds(data);
+  enableElements(mapFilters, 'input');
+  enableElements(mapFilters, 'select');
   mapFilters.addEventListener('change', () => {
     (debounce(() => {
       removeUnmatchedAds();
