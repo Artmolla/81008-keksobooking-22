@@ -13,7 +13,6 @@ export const getData = (onSuccess, errorDestination) => {
   return fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       onSuccess(data);
     })
     .catch((err) => {

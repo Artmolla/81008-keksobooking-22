@@ -63,9 +63,5 @@ export const createCustomPopup = ({ author, offer }) => {
   clonedCard.querySelector('.popup__description').textContent = offer.description;
   populateListingImages(offer.photos, clonedCard.querySelector('.popup__photos'));
   clonedCard.querySelector('.popup__avatar').src = author.avatar;
-  // if(offer.features.lengts === 0) {
-  //   console.log('!!!!');
-  //   clonedCard.querySelector('.popup__features').remove();
-  // }
   return clonedCard;
 }
