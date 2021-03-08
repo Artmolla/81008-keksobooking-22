@@ -32,9 +32,9 @@ const submitButton = document.querySelector('.ad-form__submit');
 export const addressField = document.querySelector('#address');
 
 const validateTitleInput = (input) => {
-  if (input.validity.valid === false) {
+  if (!input.validity.valid) {
     input.classList.add('invalid');
-  } else if (input.validity.valueMissing === true) {
+  } else if (input.validity.valueMissing) {
     input.setCustomValidity('Пожалуйста, заполните это поле');
   } else if (input.value.tooShort) {
     input.setCustomValidity(`Описание слишком короткое минимальная длинна ${MIN_TITLE_LENGTH}`);
