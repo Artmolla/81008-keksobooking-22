@@ -44,6 +44,24 @@ map.on('load', () => {
   enableElements(adForm, 'select');
   enableElements(adForm, 'button');
   enableElements(adForm, 'textarea');
+  getData((data) => {
+    renderSimilarAds(data);
+    enableElements(mapFilters, 'input');
+    enableElements(mapFilters, 'select');
+    mapFilters.addEventListener('change', () => {
+      (debounce(() => {
+        removeUnmatchedAds();
+        renderSimilarAds(filterAll(data));
+      }, RENDER_DELAY))();
+    });
+
+    resetButton.addEventListener('click', () => {
+      resetForm();
+      renderSimilarAds(data);
+    });
+
+    submitButton.addEventListener('click', () => renderSimilarAds(data))
+  }, mapContainer);
 })
 
 map.setView(MAIN_PIN_COORDINATES, 10);
@@ -114,22 +132,3 @@ export const removeUnmatchedAds = () => {
     }
   })
 };
-
-getData((data) => {
-  renderSimilarAds(data);
-  enableElements(mapFilters, 'input');
-  enableElements(mapFilters, 'select');
-  mapFilters.addEventListener('change', () => {
-    (debounce(() => {
-      removeUnmatchedAds();
-      renderSimilarAds(filterAll(data));
-    }, RENDER_DELAY))();
-  });
-
-  resetButton.addEventListener('click', () => {
-    resetForm();
-    renderSimilarAds(data);
-  });
-
-  submitButton.addEventListener('click', () => renderSimilarAds(data))
-}, mapContainer);
