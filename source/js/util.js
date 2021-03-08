@@ -14,5 +14,5 @@ export const generateRandomFloat = (min, max, floatPrecision) => {
     : false;
 }
 
-export const getRandomValue = (array) => array[generateRandomInteger(0, array.length - 1)];
+export const getRandomValue = (items) => items[generateRandomInteger(0, items.length - 1)];
 export const generateRandomList = (array) => array.slice(generateRandomInteger(0, array.length));

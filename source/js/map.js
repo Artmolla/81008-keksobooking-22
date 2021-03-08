@@ -5,19 +5,28 @@ import {
   enableElements
 } from './disable.js';
 
-import { filterAll } from './filter.js';
-
-import { mapFilters } from './filter.js';
+import {
+  filterAll,
+  mapFilters
+} from './filter.js';
 
 import { createCustomPopup } from './popup.js';
 
-import { addressField } from './form.js';
+import {
+  addressField,
+  submitButton,
+  resetButton
+} from './form.js';
 
 import { getData } from './data.js';
 
 import { GENERATE_LIST_OF_ADS_COUNT } from './ad-list.js';
 
 import { debounce } from './debounce.js';
+
+import { resetForm } from './reset.js';
+
+const RENDER_DELAY = 500;
 
 export const MAIN_PIN_COORDINATES = {
   lat: 35.6801,
@@ -28,8 +37,6 @@ export const mapContainer = document.querySelector('.map');
 
 export const map = L.map('map-canvas');
 
-const RENDER_DELAY = 500;
-
 map.on('load', () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
@@ -37,8 +44,24 @@ map.on('load', () => {
   enableElements(adForm, 'select');
   enableElements(adForm, 'button');
   enableElements(adForm, 'textarea');
-  enableElements(mapFilters, 'input');
-  enableElements(mapFilters, 'select');
+  getData((data) => {
+    renderSimilarAds(data);
+    enableElements(mapFilters, 'input');
+    enableElements(mapFilters, 'select');
+    mapFilters.addEventListener('change', () => {
+      (debounce(() => {
+        removeUnmatchedAds();
+        renderSimilarAds(filterAll(data));
+      }, RENDER_DELAY))();
+    });
+
+    resetButton.addEventListener('click', () => {
+      resetForm();
+      renderSimilarAds(data);
+    });
+
+    submitButton.addEventListener('click', () => renderSimilarAds(data))
+  }, mapContainer);
 })
 
 map.setView(MAIN_PIN_COORDINATES, 10);
@@ -109,13 +132,3 @@ export const removeUnmatchedAds = () => {
     }
   })
 };
-
-getData((data) => {
-  renderSimilarAds(data);
-  mapFilters.addEventListener('change', () => {
-    (debounce(() => {
-      removeUnmatchedAds();
-      renderSimilarAds(filterAll(data));
-    }, RENDER_DELAY))();
-  });
-}, mapContainer);
