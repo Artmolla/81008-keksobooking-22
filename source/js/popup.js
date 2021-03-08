@@ -22,25 +22,33 @@ function getWordInRightCase(integer, wordList) {
 }
 
 const populateListingFeatures = (featureList, destination) => {
-  destination.innerHTML = '';
-  featureList.forEach((feature => {
-    const li = document.createElement('li');
-    li.classList.add('popup__feature', `popup__feature--${feature}`);
-    destination.appendChild(li);
-  }));
+  if (featureList.length === 0) {
+    destination.remove();
+  } else {
+    destination.innerHTML = '';
+    featureList.forEach((feature => {
+      const li = document.createElement('li');
+      li.classList.add('popup__feature', `popup__feature--${feature}`);
+      destination.appendChild(li);
+    }));
+  }
 }
 
 const populateListingImages = (imagesList, destination) => {
-  const imagesFragment = document.createDocumentFragment();
+  if (imagesList.length === 0) {
+    destination.remove();
+  } else {
+    const imagesFragment = document.createDocumentFragment();
 
-  imagesList.forEach((image) => {
-    const clonedImage = destination.querySelector('img').cloneNode();
-    clonedImage.src = image;
-    imagesFragment.appendChild(clonedImage);
-  });
+    imagesList.forEach((image) => {
+      const clonedImage = destination.querySelector('img').cloneNode();
+      clonedImage.src = image;
+      imagesFragment.appendChild(clonedImage);
+    });
 
-  destination.innerHTML = '';
-  destination.appendChild(imagesFragment);
+    destination.innerHTML = '';
+    destination.appendChild(imagesFragment);
+  }
 }
 
 export const createCustomPopup = ({ author, offer }) => {
@@ -55,5 +63,9 @@ export const createCustomPopup = ({ author, offer }) => {
   clonedCard.querySelector('.popup__description').textContent = offer.description;
   populateListingImages(offer.photos, clonedCard.querySelector('.popup__photos'));
   clonedCard.querySelector('.popup__avatar').src = author.avatar;
+  // if(offer.features.lengts === 0) {
+  //   console.log('!!!!');
+  //   clonedCard.querySelector('.popup__features').remove();
+  // }
   return clonedCard;
 }
