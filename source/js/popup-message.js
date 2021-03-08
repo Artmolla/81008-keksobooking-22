@@ -14,6 +14,14 @@ export const createErrorMessagePopup = () => errorMessageTemplate.cloneNode(true
 
 export const showMessagePopup = (parent, message) => {
   parent.appendChild(message);
-  message.addEventListener('click', () => message.remove());
-  window.addEventListener('keydown', (evt) => evt.key === 'Escape' ? message.remove() : null);
+  message.addEventListener('click', () => {
+    message.remove();
+    message.removeEventListener('click', showMessagePopup);
+  });
+  window.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      message.remove();
+      window.removeEventListener('keydown', showMessagePopup);
+    }
+  });
 }
