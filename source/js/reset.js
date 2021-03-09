@@ -4,7 +4,8 @@ import {
 
 import {
   adForm,
-  addressField
+  addressField,
+  pricePerNightInput
 } from './form.js';
 
 import {
@@ -18,6 +19,8 @@ export const resetForm = () => {
   adForm.reset();
   avatarPreviewContainer.src = 'img/muffin-grey.svg';
   addressField.value = `${MAIN_PIN_COORDINATES.lat}, ${MAIN_PIN_COORDINATES.lng}`;
+  pricePerNightInput.min = 0;
+  pricePerNightInput.placeholder = 0;
   listingPhotoPreviewContainer.innerHTML = '';
   mapFilters.reset();
 }
