@@ -88,10 +88,7 @@ export const pinIcon = L.icon({
 });
 
 export const mainMarker = L.marker(
-  {
-    lat: 35.6801,
-    lng: 139.7655,
-  },
+  MAIN_PIN_COORDINATES,
   {
     draggable: true,
     icon: mainPinIcon,
