@@ -7,7 +7,7 @@ const LISTING_TYPES = {
 
 export const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-function getWordInRightCase(integer, wordList) {
+const getWordInRightCase = (integer, wordList) => {
   integer = Math.abs(integer) % 100;
   const integer1 = integer % 10;
   if (integer > 10 && integer < 20) {

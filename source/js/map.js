@@ -2,7 +2,7 @@
 
 import {
   adForm,
-  enableElements
+  setElementsAvailability
 } from './disable.js';
 
 import {
@@ -40,14 +40,14 @@ export const map = L.map('map-canvas');
 map.on('load', () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
-  enableElements(adForm, 'input');
-  enableElements(adForm, 'select');
-  enableElements(adForm, 'button');
-  enableElements(adForm, 'textarea');
+  setElementsAvailability(adForm, 'input', 'true');
+  setElementsAvailability(adForm, 'select', 'true');
+  setElementsAvailability(adForm, 'button', 'true');
+  setElementsAvailability(adForm, 'textarea', 'true');
   getData((data) => {
     renderSimilarAds(data);
-    enableElements(mapFilters, 'input');
-    enableElements(mapFilters, 'select');
+    setElementsAvailability(mapFilters, 'input', 'true');
+    setElementsAvailability(mapFilters, 'select', 'true');
     mapFilters.addEventListener('change', () => {
       (debounce(() => {
         removeUnmatchedAds();
@@ -88,10 +88,7 @@ export const pinIcon = L.icon({
 });
 
 export const mainMarker = L.marker(
-  {
-    lat: 35.6801,
-    lng: 139.7655,
-  },
+  MAIN_PIN_COORDINATES,
   {
     draggable: true,
     icon: mainPinIcon,

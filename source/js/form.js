@@ -17,6 +17,8 @@ const GUESTS_BY_ROOM = {
   3: ['1', '2', '3'],
   100: ['0'],
 }
+
+const INVALID = 'invalid';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
@@ -34,7 +36,7 @@ export const resetButton = document.querySelector('.ad-form__reset');
 
 const validateTitleInput = (input) => {
   if (!input.validity.valid) {
-    input.classList.add('invalid');
+    input.classList.add(INVALID);
   } else if (input.validity.valueMissing) {
     input.setCustomValidity('Пожалуйста, заполните это поле');
   } else if (input.value.tooShort) {
@@ -43,7 +45,7 @@ const validateTitleInput = (input) => {
     input.setCustomValidity(`Описание слишком длинное максимальная длинна ${MAX_TITLE_LENGTH}`);
   } else {
     input.setCustomValidity('');
-    input.classList.remove('invalid');
+    input.classList.remove(INVALID);
   }
 
   input.reportValidity();
@@ -52,9 +54,9 @@ const validateTitleInput = (input) => {
 const validatePrice = (input) => {
   if (input.value >= MIN_PRICES[listingTypeSelect.value]) {
     input.setCustomValidity('');
-    input.classList.remove('invalid');
+    input.classList.remove(INVALID);
   } else {
-    input.classList.add('invalid');
+    input.classList.add(INVALID);
     input.setCustomValidity(`Минимальная цена для этого типа сoставляет ${MIN_PRICES[listingTypeSelect.value]}`);
   }
 }
