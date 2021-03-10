@@ -1,3 +1,7 @@
+const PRICE_CONFIGURATION = {
+  low: 1000,
+  middle: 50000,
+}
 export const mapFilters = document.querySelector('.map__filters');
 const typeSelect = mapFilters.querySelector('#housing-type');
 const priceSelect = mapFilters.querySelector('#housing-price');
@@ -8,11 +12,11 @@ const featuresField = mapFilters.querySelector('#housing-features');
 export const filterByPrice = (listing) => {
   switch (priceSelect.value) {
     case 'low':
-      return listing.offer.price <= 1000;
+      return listing.offer.price <= PRICE_CONFIGURATION.low;
     case 'middle':
-      return listing.offer.price >= 1000 && listing.offer.price <= 50000;
+      return listing.offer.price >= PRICE_CONFIGURATION.low && listing.offer.price <= PRICE_CONFIGURATION.middle;
     case 'high':
-      return listing.offer.price >= 50000;
+      return listing.offer.price >= PRICE_CONFIGURATION.middle;
     case 'any':
       return listing;
   }
