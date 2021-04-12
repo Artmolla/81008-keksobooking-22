@@ -10,7 +10,7 @@ import { resetForm } from './reset.js';
 const mainContent = document.querySelector('main');
 
 export const getData = (onSuccess, errorDestination) => {
-  return fetch('https://22.javascript.pages.academy/keksobooking/data')
+  return fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
